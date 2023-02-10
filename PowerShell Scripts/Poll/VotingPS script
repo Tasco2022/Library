@@ -1,0 +1,19 @@
+$userId = $ScriptArgs.Items[0]
+$fieldId = 12376
+switch ($ScriptArgs.EventArg1) {
+      'Yes, all good.' { 
+        Update-MSUserMigrationsCustomFields -FieldId $fieldId -FieldInstanceId $userId -DataValue 'Yes, all good.'
+        New-MSApiResult -Header "Thank you for submitting your feedback" -Content "The project team will be in contact shortly" -Status Success
+     }
+    'Not set up.' { 
+        Update-MSUserMigrationsCustomFields -FieldId $fieldId -FieldInstanceId $userId -DataValue 'Not set up.'
+        New-MSApiResult -Header "Thank you for submitting your feedback" -Content "The project team will be in contact shortly" -Status Success
+     }
+    'No idea what it is.' { 
+        Update-MSUserMigrationsCustomFields -FieldId $fieldId -FieldInstanceId $userId -DataValue 'No idea what it is.'
+        New-MSApiResult -Header "Thank you for submitting your feedback" -Content "The project team will be in contact shortly" -Status Success
+     }
+      Default {
+        New-MSApiResult -Header "Invalid Submission" -Content "Please contact a member of the project team" -Status Error
+    }
+}
